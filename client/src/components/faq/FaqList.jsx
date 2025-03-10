@@ -6,7 +6,7 @@ const FaqList = () => {
     return (
         <ul className='mt-[30px]'>
             {faqs.map((item,index)=> (
-                <FaqItem item={item} key={item} />
+                <FaqItem item={item} key={index} />
             ))}
         </ul>
     )
