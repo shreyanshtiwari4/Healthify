@@ -1,4 +1,7 @@
+import { model } from 'mongoose';
 import Doctor from '../Models/DoctorSchema.js';
+import Review from '../Models/ReviewSchema.js';  
+
 
 export const updateDoctor = async (req, res) => {
     const id = req.params.id;
@@ -28,7 +31,7 @@ export const getSingleDoctor = async (req, res) => {
     const id = req.params.id;
 
     try {
-        const doctor = await Doctor.findById(id).populate('reviews').select('-password');
+        const doctor = await Doctor.findById(id).populate({path: 'reviews', model: 'Review'}).select('-password').exec();
 
         res.status(200).json({success:true, message: 'Doctor found', data:doctor})
     } catch (err) {
