@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema({
         enum: ['male', 'female', 'other'],
         default: 'male'
     },
-    bloodTpe: {
+    bloodType: {
         type: String
     },
     appointments: [{
