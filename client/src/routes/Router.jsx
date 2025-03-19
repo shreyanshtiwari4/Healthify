@@ -7,6 +7,9 @@ import Services from '../pages/Services';
 import Contact from '../pages/Contact';
 import DoctorDetails from '../pages/Doctors/DoctorDetails';
 import Doctors from '../pages/Doctors/Doctors';
+import MyAccount from '../Dashboard/user-account/MyAccount';
+import Dashboard from '../Dashboard/doctor-account/Dashboard';
+import ProtectedRoute from './ProtectedRoute';
 
 
 const Router = () => {
@@ -20,6 +23,20 @@ const Router = () => {
         <Route path = '/contact' element={ <Contact /> } />
         <Route path = '/doctors' element={ <Doctors /> } />
         <Route path = '/doctors/:id' element={ <DoctorDetails/> } />
+        <Route path = '/users/profile/me' 
+          element={ 
+            <ProtectedRoute allowedRoles={['patient']}> 
+              <MyAccount /> 
+            </ProtectedRoute> 
+          } 
+        />
+        <Route path = '/doctors/profile/me' 
+          element={ 
+            <ProtectedRoute allowedRoles={['patient']}> 
+              <Dashboard/>  
+            </ProtectedRoute>
+          } 
+        />
     </Routes>
   )
 }

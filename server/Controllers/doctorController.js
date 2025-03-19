@@ -1,6 +1,8 @@
 import { model } from 'mongoose';
 import Doctor from '../Models/DoctorSchema.js';
 import Review from '../Models/ReviewSchema.js';  
+import Appointment from '../Models/BookingSchema.js';
+import BookingSchema from '../Models/BookingSchema.js';
 
 
 export const updateDoctor = async (req, res) => {
@@ -63,5 +65,24 @@ export const getAllDoctor = async (req, res) => {
         res.status(200).json({success:true, message: 'Doctors found', data:doctors})
     } catch (err) {
         res.status(404).json({success:false, message:'Not found'})
+    }
+}
+
+export const getDoctorProfile = async (req, res) => {
+    const doctorId = req.userId;
+    
+    try{
+        const doctor = await User.findById(doctorId)
+
+        if(!doctor){
+            return res.status(404).json({success:false, message:'Doctor not found'})
+        }
+
+        const {password, ...rest} = user._doc;
+        const appointments = await Appointment.find({doctor: doctorId});
+
+        res.status(200).json({success:true, message:'Profile info is getting', data:{...rest}})
+    } catch (err){
+        res.status(500).json({success:false, message:'Something went wrong'})
     }
 }
