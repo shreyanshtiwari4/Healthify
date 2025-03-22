@@ -72,13 +72,13 @@ export const getDoctorProfile = async (req, res) => {
     const doctorId = req.userId;
     
     try{
-        const doctor = await User.findById(doctorId)
+        const doctor = await Doctor.findById(doctorId)
 
         if(!doctor){
             return res.status(404).json({success:false, message:'Doctor not found'})
         }
 
-        const {password, ...rest} = user._doc;
+        const {password, ...rest} = doctor._doc;
         const appointments = await Appointment.find({doctor: doctorId});
 
         res.status(200).json({success:true, message:'Profile info is getting', data:{...rest}})
