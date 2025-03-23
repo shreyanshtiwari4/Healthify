@@ -29,13 +29,13 @@ const DoctorSchema = new mongoose.Schema({
     },
 
     specialization: {
-        type: String
+        type: String,
     },
-    qualification: {
-        type: String
+    qualifications: {
+        type: Array,
     },
-    experience: {
-        type: String
+    experiences: {
+        type: Array,
     },
     bio: {
         type: String,
