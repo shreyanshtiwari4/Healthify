@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import Review from './ReviewSchema.js';
+import Appointment from './BookingSchema.js';
 
 
 const DoctorSchema = new mongoose.Schema({

@@ -75,4 +75,3 @@ const DoctorAbout = ({ name, about, qualifications = [], experiences = [] }) => 
   }
   
   export default DoctorAbout;
-  

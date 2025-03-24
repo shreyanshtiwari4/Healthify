@@ -454,7 +454,7 @@ const Profile = ({ doctorData }) => {
                     name='photo' 
                     id='customFile' 
                     onChange={handleFileInputChange}
-                    accept='.jpg, .png'
+                    accept='.jpg, .png .jpeg'
                     className='absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer'
                   />
 
