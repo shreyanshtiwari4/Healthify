@@ -1,42 +1,65 @@
 import React,{useState} from 'react';
-import doctorImg from './../../assets/images/doctor-img02.png';
 import starIcon from './../../assets/images/Star.png';
 import DoctorAbout from './DoctorAbout';
 import Feedback from './Feedback';
 import SidePanel from './SidePanel';
+import { BASE_URL } from './../../config'
+import useFetchData from './../../hooks/useFetchData'
+import Loading from '../../components/Loader/Loading'
+import Error from '../../components/Error/Error'
+import DoctorCard from './../../components/Doctors/DoctorCard';
+import { useParams } from 'react-router-dom';
 
 const DoctorDetails = () => {
 
   const [tab, setTab] = useState('about');
+  const {id} = useParams();
+  const {data:doctor,loading,error} = useFetchData(`${BASE_URL}/doctors/${id}`)
+  const {
+    name,
+    qualifications,
+    experiences,
+    timeSlots,
+    reviews,
+    bio,
+    about,
+    averageRating,
+    totalRating,
+    specialization,
+    ticketPrice,
+    photo,
+  } = doctor;
 
   return (
     <section>
       <div className='max-w-[1170px] px-5 mx-auto'>
-        <div className='grid md:grid-cols-3 gap-[50px]'>
+      {loading && <Loading />}
+      {error && <Error />}
+      {!loading && !error && (<div className='grid md:grid-cols-3 gap-[50px]'>
           <div className='md:col-span-2'>
             <div className='flex items-center gap-5'>
               <figure className='max-w-[200px] max-h-[200px]'>
-                <img src={doctorImg} alt="" className='w-full'/>
+                <img src={photo} alt="" className='w-full'/>
               </figure>
 
               <div>
                 <span className='bg-[#CCF0F3] text-irisBlueColor py-1 px-6 lg:py-2 lg:px-6 text-[12px]
                 leading-4 lg:text-[16px] lg:leading-7 font-semibold rounded'>
-                  Surgeon
+                  {specialization}
                 </span>
-                <h3 className='mt-3'>Shivdutt Tiwari</h3>
+                <h3 className='mt-3'>{name}</h3>
                 <div className='flex items-center gap-[6px]'>
                   <span className='flex items-center gap-[6px] text-[14px] leading-5 lg:text-[16px]
                   lg:leading-7 font-semibold text-headingColor'>
-                    <img src={starIcon} alt="" /> 4.8
+                    <img src={starIcon} alt="" /> {averageRating}
                   </span>
                   <span className='text-[14px] leading-5 lg:text-[16px] lg:leading-7 font-[400]
                   text-textColor'>
-                    (272)
+                    ({totalRating})
                   </span>
                 </div>
                 <p className='text__para text-[14px] leading-5 md:text-[15px] lg:max-w-[390px]'>
-                  One of the best doctors in the city. He has been practicing for over 10 years.
+                {bio}
                 </p>
               </div>
             </div>
@@ -58,15 +81,15 @@ const DoctorDetails = () => {
             </div>
 
             <div className='mt-[50px]'>
-              {tab == 'about' && <DoctorAbout/>}
-              {tab == 'feedback' && <Feedback/>}
+            {tab == 'about' && <DoctorAbout prop={{name,about,qualifications,experiences}}/>}
+            {tab == 'feedback' && <Feedback prop={{reviews,totalRating}} />}
             </div>
           </div>
 
           <div>
             <SidePanel/>
           </div>
-        </div>
+        </div>)}
       </div>
     </section>
   )
