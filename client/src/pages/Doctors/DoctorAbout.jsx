@@ -1,6 +1,7 @@
 import { formateDate } from './../../utils/formateDate';
 
-const DoctorAbout = ({ name, about, qualifications = [], experiences = [] }) => {
+const DoctorAbout = ({prop}) => {
+    const { name, about, qualifications = [], experiences = [] } = prop
     return (
       <div>
           <div className='w-full'>
