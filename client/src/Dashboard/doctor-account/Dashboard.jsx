@@ -7,7 +7,7 @@ import Tabs from './Tabs'
 import starIcon from '../../assets/images/Star.png'
 import DoctorAbout from '../../pages/Doctors/DoctorAbout'
 import Profile from './Profile'
-import Appointments from './Appointment'
+import Appointments from './Appointments'
 
 const Dashboard = () => {
 
@@ -81,11 +81,12 @@ const Dashboard = () => {
                         </p>
                       </div>
                       </div>
-                      <DoctorAbout 
-                        name={data.name} 
-                        about={data.about} 
-                        qualifications={data.qualifications}
-                        experiences={data.experiences}
+                      <DoctorAbout prop = {{
+                        name:data.name ,
+                        about:data.about ,
+                        qualifications:data.qualifications,
+                        experiences:data.experiences
+                      }}
                       />
                   </div>
                 )}

@@ -81,13 +81,13 @@ const DoctorDetails = () => {
             </div>
 
             <div className='mt-[50px]'>
-            {tab == 'about' && <DoctorAbout prop={{name,about,qualifications,experiences}}/>}
+            {tab == 'about'&& doctor  && (<DoctorAbout prop={{name,about,qualifications,experiences}}/>)}
             {tab == 'feedback' && <Feedback prop={{reviews,totalRating}} />}
             </div>
           </div>
 
           <div>
-            <SidePanel/>
+            <SidePanel doctorId = {doctor._id} ticketPrice = {ticketPrice} timeSlots ={timeSlots}/>
           </div>
         </div>)}
       </div>
