@@ -17,10 +17,12 @@ export const register = async (req, res) => {
     try {
 
         let user = null;
+        
 
         if(role == 'patient'){
             user = await User.findOne({email});
-        }else if(role == 'doctor'){
+        }
+        if(role == 'doctor'){
             user = await Doctor.findOne({email});
         }
 
@@ -43,7 +45,7 @@ export const register = async (req, res) => {
         }
 
         if(role == 'doctor'){
-            user = new Doctor({
+            user =  new Doctor({
                 name,
                 email,
                 password: hashPassword,
@@ -58,7 +60,7 @@ export const register = async (req, res) => {
         res.status(200).json({success:true, message: 'User created successfully'});
 
     }catch (err) {
-        console.error('Error during registration:', err);
+        console.error('Error during registration:', err.message);
         res.status(500).json({success:false, message: 'Internal server error, please try again'});
     }
 }
