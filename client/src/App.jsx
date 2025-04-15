@@ -8,7 +8,9 @@ function App() {
     <>
       
       <Layout />
-      <ToastContainer />
+      <ToastContainer 
+        theme='dark'
+      />
       
       </>
   )

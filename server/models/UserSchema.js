@@ -35,8 +35,8 @@ const UserSchema = new mongoose.Schema({
     },
     appointments: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Appoinment'
+        ref: 'Appointment'
     }]
 })
 
-export default mongoose.model('User', UserSchema);
+export default mongoose.models.User || mongoose.model('User', UserSchema);

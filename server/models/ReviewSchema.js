@@ -66,4 +66,4 @@ reviewSchema.post('save', function(){
     this.constructor.calcAverageRatings(this.doctor);
 });
 
-export default mongoose.model('Review', reviewSchema);
+export default mongoose.models.Review || mongoose.model('Review', reviewSchema);

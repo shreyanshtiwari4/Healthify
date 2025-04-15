@@ -16,13 +16,13 @@ const Appointments = ({appointments}) => {
         <tbody>
             {appointments?.map(item=>(<tr key = {item._id}>
                 <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
-                    <img src={item.user.photo} className='w-10 h-10 rounded-full' alt='' />
+                    <img src={item?.user?.photo || '/default.jpg'} className='w-10 h-10 rounded-full' alt='' />
                     <div className='text-base front-semibold'>{item.user.name}</div>
                     <div className='text-normal text-gray-500'>
-                        {item.user.email}
+                        {item?.user?.email}
                     </div>
                 </th>
-                <td className="px-6 py-4">{item.user.gender}</td>
+                <td className="px-6 py-4">{item?.user?.gender || 'N/A'}</td>
                 <td className="px-6 py-4">
                   {item.isPaid && (<div className='flex items-center'><div className='h-2.5 w-2.5 rounded-full bg-green-500 '></div>
                       Paid

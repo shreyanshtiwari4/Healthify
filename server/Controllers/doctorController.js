@@ -79,9 +79,9 @@ export const getDoctorProfile = async (req, res) => {
         }
 
         const {password, ...rest} = doctor._doc;
-        const appointments = await Appointment.find({doctor: doctorId});
+        const appointments = await Appointment.find({doctor: doctorId}).populate('user', '-password');
 
-        res.status(200).json({success:true, message:'Profile info is getting', data:{...rest}})
+        res.status(200).json({success:true, message:'Profile info is getting', data:{...rest, appointments}})
     } catch (err){
         res.status(500).json({success:false, message:'Something went wrong'})
     }

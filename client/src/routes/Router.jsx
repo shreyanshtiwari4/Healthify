@@ -10,7 +10,7 @@ import Doctors from '../pages/Doctors/Doctors';
 import MyAccount from '../Dashboard/user-account/MyAccount';
 import Dashboard from '../Dashboard/doctor-account/Dashboard';
 import ProtectedRoute from './ProtectedRoute';
-
+import CheckoutSuccess from '../pages/Doctors/CheckoutSuccess';
 
 const Router = () => {
   return (
@@ -23,6 +23,7 @@ const Router = () => {
         <Route path = '/contact' element={ <Contact /> } />
         <Route path = '/doctors' element={ <Doctors /> } />
         <Route path = '/doctors/:id' element={ <DoctorDetails/> } />
+        <Route path = '/checkout-success' element={ <CheckoutSuccess/> } />
         <Route path = '/users/profile/me' 
           element={ 
             <ProtectedRoute allowedRoles={['patient']}> 
