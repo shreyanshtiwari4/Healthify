@@ -78,7 +78,7 @@ const Footer = () => {
       <div className='container'>
         <div className='flex justify-between flex-col md:flex-row flex-wrap gap-[30px]'>
           <div>
-            <img src={logo} alt="" />
+            <img src={logo} alt="logo" style={{ width: '130px', height: 'auto' }} />
             <p className='text-[16px] leading-7 font-[400] text-textColor'>
               Copyright &copy; {year} developed by Healthify all right reserved.
             </p>

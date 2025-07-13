@@ -8,16 +8,14 @@ import { HashLoader } from 'react-spinners';
 import axios from 'axios';
 
 const Signup = () => {
-
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [previewURL, setPreviewURL] = useState("");
+  const [previewURL, setPreviewURL] = useState('https://res.cloudinary.com/shreyansharipur/image/upload/v1752412201/default-profile-pic_qlhe8z.webp');
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-    photo: selectedFile,
+    photo: 'https://res.cloudinary.com/shreyansharipur/image/upload/v1752412201/default-profile-pic_qlhe8z.webp',
     gender: 'male',
     role: 'patient'
   });
@@ -37,7 +35,6 @@ const Signup = () => {
     const data = await uploadImageToCloudinary(file);
 
     setPreviewURL(data.url);
-    setSelectedFile(data.url);
     setFormData({ ...formData, photo: data.url });
   }
 
@@ -156,11 +153,9 @@ const Signup = () => {
               </div>
 
               <div className='mb-5 flex items-center gap-3'>
-                { selectedFile && <figure className='w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor
-                flex items-center justify-center'>
-                  <img src={previewURL} alt="" className='w-full rounded-full'/>
-                </figure>}
-
+                <figure className='w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor flex items-center justify-center overflow-hidden'>
+                  <img src={previewURL} alt="preview" className='w-full h-full object-cover rounded-full'/>
+                </figure>
                 <div className='relative w-[130px] h-[50px]'>
                   <input 
                     type="file" 

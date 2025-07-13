@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import Review from './ReviewSchema.js';
 import Appointment from './BookingSchema.js';
 
-
 const DoctorSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -21,7 +20,8 @@ const DoctorSchema = new mongoose.Schema({
         type: String
     },
     photo: {
-        type: String
+        type: String,
+        default: 'https://res.cloudinary.com/shreyansharipur/image/upload/v1752412201/default-profile-pic_qlhe8z.webp'
     },
     ticketPrice: {
         type: Number
