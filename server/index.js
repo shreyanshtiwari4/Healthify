@@ -8,6 +8,7 @@ import userRoute from './Routes/user.js';
 import doctorRoute from './Routes/doctor.js';
 import reviewRoute from './Routes/review.js';
 import bookingRoute from './Routes/booking.js';
+import adminRoutes from './routes/admin.js';
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ connectDB();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
+app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/users', userRoute);
 app.use('/api/v1/doctors', doctorRoute);

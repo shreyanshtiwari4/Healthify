@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
@@ -11,10 +10,22 @@ import MyAccount from '../Dashboard/user-account/MyAccount';
 import Dashboard from '../Dashboard/doctor-account/Dashboard';
 import ProtectedRoute from './ProtectedRoute';
 import CheckoutSuccess from '../pages/Doctors/CheckoutSuccess';
+import AdminLogin from '../pages/Admin/AdminLogin';
+import AdminDashboard from '../pages/Admin/AdminDashboard';
+import ProtectedAdminRoute from './ProtectedAdminRoute';
 
 const Router = () => {
   return (
     <Routes>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboard />
+            </ProtectedAdminRoute>
+          }
+        />
         <Route path = '/' element={ <Home /> } />
         <Route path = '/home' element={ <Home /> } />
         <Route path = '/login' element={ <Login /> } />
