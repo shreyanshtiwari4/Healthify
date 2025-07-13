@@ -4,6 +4,7 @@ import uploadImageToCloudinary from '../../utils/uploadCloudinary';
 import { BASE_URL,token } from '../../config';
 import { toast } from 'react-toastify';
 import { HashLoader } from 'react-spinners';
+import axios from 'axios';
 
 const Profile = ({user}) => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -48,37 +49,34 @@ const Profile = ({user}) => {
         setFormData({ ...formData, photo: data.url });
     }
 
-    const submitHandler = async event => {
+    const submitHandler = async (event) => {
         event.preventDefault();
-        
         setLoading(true);
 
-        try{
-            const res = await fetch(`${BASE_URL}/users/${user._id}`,{
-            method: 'put',
-            headers: {
+        try {
+            const res = await axios.put(
+            `${BASE_URL}/users/${user._id}`,
+            formData,
+            {
+                headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
-            },
-            body: JSON.stringify(formData)
-            })
-
-            const {message} = await res.json();
-
-            if(!res.ok){
-            throw new Error(message);
+                Authorization: `Bearer ${token}`,
+                },
             }
-            // console.log(formData, 'updated data')
+            );
 
-            setLoading(false);
+            const { message } = res.data;
+
             toast.success(message);
             navigate('/users/profile/me');
-
         } catch (err) {
-            toast.error(err.message);
+            const errorMsg = err.response?.data?.message || err.message;
+            toast.error(errorMsg);
+        } finally {
             setLoading(false);
         }
-    }
+    };
+    
     return (
         <div className='mt-10'>
             <form onSubmit={submitHandler}>

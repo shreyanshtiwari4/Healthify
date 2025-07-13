@@ -1,4 +1,3 @@
-import React from 'react';
 import ServiceCard from '../components/Services/ServiceCard';
 import { services } from '../assets/data/services';
 

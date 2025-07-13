@@ -1,4 +1,3 @@
-import React from 'react'
 import DoctorCard from './DoctorCard'
 import { BASE_URL } from '../../config'
 import useFetchData from '../../hooks/useFetchData'

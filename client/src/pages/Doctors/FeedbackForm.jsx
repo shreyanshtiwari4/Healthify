@@ -4,6 +4,7 @@ import { BASE_URL, token } from './../../config'
 import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import HashLoader from 'react-spinners/HashLoader'
+import axios from 'axios'
 
 const FeedbackForm = () => {
 
@@ -17,36 +18,32 @@ const FeedbackForm = () => {
     e.preventDefault();
     setLoading(true);
 
-    try{
-        if(!rating || !reviewText){
+    try {
+        if (!rating || !reviewText) {
             setLoading(false);
             toast.error('Rating and review fields are required');
             return;
         }
 
-        else{
-
-            const res = await fetch(`${BASE_URL}/doctors/${id}/reviews`,{
-                method : 'post',
-                headers:{
-                    'Content-type':'application/json',
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify({rating, reviewText})
-            })
-
-            const result = await res.json()
-            if(!res.ok){
-                throw new Error(result.message);
+        const res = await axios.post(
+            `${BASE_URL}/doctors/${id}/reviews`,
+            { rating, reviewText },
+            {
+                headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+                }
             }
-            setLoading(false)
-            toast.success(result.message);
-        }
-    }catch(error){
-        setLoading(false)
-        toast.error(error.message)
+        );
+
+        toast.success(res.data.message);
+    } catch (error) {
+        const errorMsg = error.response?.data?.message || error.message;
+        toast.error(errorMsg);
+    } finally {
+        setLoading(false);
     }
-  }
+    };
     
   return (
     <form action="">

@@ -5,6 +5,7 @@ import uploadImageToCloudinary from '../utils/uploadCloudinary';
 import { BASE_URL } from '../config';
 import { toast } from 'react-toastify';
 import { HashLoader } from 'react-spinners';
+import axios from 'axios';
 
 const Signup = () => {
 
@@ -42,33 +43,24 @@ const Signup = () => {
 
   const submitHandler = async event => {
     event.preventDefault();
-    
     setLoading(true);
 
-    try{
-        const res = await fetch(`${BASE_URL}/auth/register`,{
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(formData)
-        })
+    try {
+      const res = await axios.post(`${BASE_URL}/auth/register`, formData);
 
-        const {message} = await res.json();
+      // Axios automatically parses response JSON
+      const { message } = res.data;
 
-        if(!res.ok){
-          throw new Error(message);
-        }
-
-        setLoading(false);
-        toast.success(message);
-        navigate('/login');
-
+      toast.success(message);
+      navigate('/login');
     } catch (err) {
-        toast.error(err.message);
-        setLoading(false);
+      // Axios throws error for non-2xx status codes, so we catch it here
+      const errorMsg = err.response?.data?.message || err.message;
+      toast.error(errorMsg);
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <section className='px-5 xl:px-0'>

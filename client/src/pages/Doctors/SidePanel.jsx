@@ -1,30 +1,31 @@
 import convertTime from '../../utils/convertTime.js'
 import { BASE_URL,token } from './../../config';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const SidePanel = ({doctorId, ticketPrice, timeSlots}) => {
     const bookingHandler = async () => {
-        try{
-            const res = await fetch(`${BASE_URL}/bookings/checkout-session/${doctorId}`,{
-                method: 'POST',
+        try {
+            const res = await axios.post(
+            `${BASE_URL}/bookings/checkout-session/${doctorId}`,
+            {}, // empty body
+            {
                 headers: {
-                    Authorization:`Bearer ${token}`
+                Authorization: `Bearer ${token}`
                 }
-            })
-
-            const data = await res.json();
-
-            if(!res.ok){
-                throw new Error(data.message);
             }
+            );
 
-            if(data.session.url){
+            const data = res.data;
+
+            if (data.session?.url) {
                 window.location.href = data.session.url;
             }
         } catch (err) {
-            toast.error(err.message);
+            const errorMsg = err.response?.data?.message || err.message;
+            toast.error(errorMsg);
         }
-    }
+    };
 
   return (
     <div className='shadow-panelShadow p-3 lg:p-5 rounded-md'>

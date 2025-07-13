@@ -1,40 +1,35 @@
-import {useEffect, useState} from 'react'
-import { token } from '../config'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { token } from '../config';
 
 const useFetchData = url => {
-    const [data, setData] = useState([])
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        setLoading(true);
-        const fetchData = async () => {
-            try{
-                const res = await fetch(url, {
-                    headers:{Authorization: `Bearer ${token}`}
-                })
-    
-                const result = await res.json()
-    
-                if(!res.ok){
-                    throw new Error(result.message)
-                }
-    
-                setData(result.data)
-                setLoading(false)
-            } catch (err) {
-                setError(err.message)
-                setLoading(false)
-            }
-        };
-        fetchData();
-    },[url]);
+  useEffect(() => {
+    setLoading(true);
 
-    return {
-        data,
-        loading,
-        error
-    }
-}
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
 
-export default useFetchData
+        setData(res.data.data); // Axios auto-parses response JSON
+      } catch (err) {
+        setError(err.response?.data?.message || err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [url]);
+
+  return { data, loading, error };
+};
+
+export default useFetchData;

@@ -11,11 +11,11 @@ const CheckoutSuccess = () => {
                 stroke='currentColor'
                 strokeWidth={2}
             >
-                {/* <path
+                <path
                     fill='currentColor'
                     d='M12,0A12,12,0,1,0,24,12,12,014,12,014,0,0,0,12,02m6,927,8.2-6.845,9.289a1.011,1.011,0,0,1-1.
                     43.188L5.785,13.769a1,1,0,1,1,1.25-1.56214.076,3.261,6.227-8.451A1,1,0,1,1,18.927,8.2Z'
-                ></path> */}
+                ></path>
                 <circle cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='2' fill='currentColor' />
                 <path stroke='#fff' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' d='M9 12l2 2l4-4' />
             </svg>

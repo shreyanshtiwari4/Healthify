@@ -3,6 +3,7 @@ import { AiOutlineDelete } from 'react-icons/ai';
 import uploadImageToCloudinary from '../../utils/uploadCloudinary';
 import { toast } from 'react-toastify';
 import { BASE_URL, token } from '../../config';
+import axios from 'axios';
 
 const Profile = ({ doctorData }) => {
     const [formData, setFormData] = useState({
@@ -63,23 +64,22 @@ const Profile = ({ doctorData }) => {
         e.preventDefault();
 
         try {
-            const res = await fetch(`${BASE_URL}/doctors/${doctorData._id}`, {
-                method: 'PUT',
+            const res = await axios.put(
+            `${BASE_URL}/doctors/${doctorData._id}`,
+            formData,
+            {
                 headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(formData),
-            });
-
-            const result = await res.json();
-            if (!res.ok) {
-                throw new Error(result.message);
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+                }
             }
-            console.log(result);
-            toast.success(result.message);
+            );
+
+            console.log(res.data);
+            toast.success(res.data.message);
         } catch (err) {
-            toast.error(err.message);
+            const errorMsg = err.response?.data?.message || err.message;
+            toast.error(errorMsg);
         }
     };
 
