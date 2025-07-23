@@ -97,6 +97,12 @@ const Login = () => {
               {loading ? <HashLoader color='#fff' size={25} /> : 'Login'}
             </button>
           </div>  
+                    <p className='mt-2 text-textColor text-center'>
+            Account not verified? 
+            <Link to='/send-verify-otp' className='text-primaryColor font-medium ml-1'>
+              Verify here
+            </Link>
+          </p>
 
           <p className='mt-5 text-textColor text-center'>
             Don&apos;t have an account? 

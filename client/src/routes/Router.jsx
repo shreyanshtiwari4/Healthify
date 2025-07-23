@@ -10,6 +10,8 @@ import MyAccount from '../Dashboard/user-account/MyAccount';
 import Dashboard from '../Dashboard/doctor-account/Dashboard';
 import ProtectedRoute from './ProtectedRoute';
 import CheckoutSuccess from '../pages/Doctors/CheckoutSuccess';
+import EmailVerify from '../pages/EmailVerify';
+import SendVerifyOtp from '../pages/SendVerify';
 
 const Router = () => {
   return (
@@ -18,6 +20,8 @@ const Router = () => {
         <Route path = '/home' element={ <Home /> } />
         <Route path = '/login' element={ <Login /> } />
         <Route path = '/signup' element={ <Signup /> } />
+        <Route path = '/email-verify' element={ <EmailVerify /> } />
+        <Route path = '/send-verify-otp' element={ <SendVerifyOtp /> } />
         <Route path = '/services' element={ <Services /> } />
         <Route path = '/contact' element={ <Contact /> } />
         <Route path = '/doctors' element={ <Doctors /> } />

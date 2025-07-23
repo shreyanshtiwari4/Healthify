@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { HashLoader } from 'react-spinners';
 import axios from 'axios';
 
+
 const Signup = () => {
   const [previewURL, setPreviewURL] = useState('https://res.cloudinary.com/shreyansharipur/image/upload/v1752412201/default-profile-pic_qlhe8z.webp');
   const [loading, setLoading] = useState(false);
@@ -49,7 +50,9 @@ const Signup = () => {
       const { message } = res.data;
 
       toast.success(message);
-      navigate('/login');
+      navigate('/email-verify', {
+        state: { email: formData.email, role: formData.role, timer: res.data.expiryTime} // Convert milliseconds to seconds
+      });
     } catch (err) {
       // Axios throws error for non-2xx status codes, so we catch it here
       const errorMsg = err.response?.data?.message || err.message;
