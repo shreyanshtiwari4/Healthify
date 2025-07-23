@@ -37,7 +37,29 @@ const UserSchema = new mongoose.Schema({
     appointments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Appointment'
-    }]
-})
+    }],
+            verifyOtp: {
+            type: String,
+            default:"",
+        },
+        verifyOtpExpireAt:{
+            type: Number,
+            default:0,
+        },
+        isAccountVerified: {
+            type:Boolean,
+            default:false,
+        },
+        resetOtp:{
+            type: String,
+            default: '',
+        },
+        resetOtpExpireAt: {
+            type: Number,
+            default:0
+        },
+    },
+    {timestamps:true}
+)
 
 export default mongoose.models.User || mongoose.model('User', UserSchema);
